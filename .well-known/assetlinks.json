@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "gsn.game.zingplaynew",
+    "sha256_cert_fingerprints":
+    ["35:87:F5:DA:68:DC:7C:83:BF:FC:81:C1:9F:8C:8A:82:90:3F:65:B8:1E:3E:7E:2C:0E:16:FE:88:58:F6:C9:66"]
+  }
+}]
