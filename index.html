@@ -38,10 +38,12 @@
     <script>
         window.location = 'zpsportal://livestream/665';
         function handleVisibilityChange() {
-    if (document.hidden) {
-        alert("hiden");
-        }
-    }
+            if (document.hidden) {
+                alert("hiden");
+            } else {
+                alert("no hiden");
+            }
+        };
 
         // Attach event listeners
         document.addEventListener('visibilitychange', handleVisibilityChange);
