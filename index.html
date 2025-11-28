@@ -1,50 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="al:android:url" content="https://link.service.zingplay.com/livestream-2222">
-    <meta property="al:android:package" content="gsn.game.zingplaynew">
-    <meta property="al:android:app_name" content="ShareSample">
-    <meta property="og:title" content="example page title" />
-    <meta property="og:type" content="website" />
-    <title>Sea Background</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-image: url('sea.jpg'); /* Replace 'sea.jpg' with the path to your sea background image */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Add your content styles here */
-        .content {
-            text-align: center;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            margin: 20px;
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Demo QR — Share / Save</title>
+<style>
+  :root{--bg:#f7fafc;--card:#ffffff;--accent:#0ea5a4;}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0;background:var(--bg);color:#0f172a;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+  .card{width:100%;max-width:520px;background:var(--card);border-radius:12px;box-shadow:0 6px 24px rgba(2,6,23,0.08);padding:18px;}
+  h1{margin:0 0 8px;font-size:20px;}
+  p{margin:0 0 12px;color:#475569;font-size:14px}
+  .row{display:flex;gap:8px;margin-bottom:12px;}
+  input[type="text"]{flex:1;padding:10px;border:1px solid #e2e8f0;border-radius:8px;font-size:15px;}
+  button{background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:8px;font-size:15px;cursor:pointer;}
+  button.secondary{background:#64748b;}
+  #qrWrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px;border:1px dashed #e2e8f0;border-radius:8px;}
+  #qrImg{width:220px;height:220px;display:block;background:#fff;padding:8px;border-radius:8px;box-shadow:0 4px 12px rgba(2,6,23,0.04);}
+  small{color:#64748b}
+  .hint{margin-top:12px;font-size:13px;color:#475569}
+  @media (max-width:420px){#qrImg{width:180px;height:180px}}
+</style>
 </head>
 <body>
-    <div class="content">
-        <h1>Welcome to the Sea Background Page</h1>
-        <p>This is a simple HTML page with a sea background. Version 3</p>
-    </div>
-    <script>
-        window.location = 'com.zps.dev.dev://gdf_2025_enable';
-        function handleVisibilityChange() {
-            if (document.hidden) {
-                window.location = 'http://google.com';
-            }
-        };
+  <div class="card">
+    <h1>QR Code — Demo Share / Save</h1>
+    <p>Tạo QR từ text và mở sheet chia sẻ (Save to Photos / Save to Files trên iOS).</p>
 
-        // Attach event listeners
-        document.addEventListener('visibilitychange', handleVisibilityChange);
-    </script>
+    <div class="row">
+      <input id="textInput" type="text" placeholder="Nhập text hoặc URL..." value="Hello from ChatGPT demo" />
+      <button id="genBtn">Generate</button>
+    </div>
+
+    <div id="qrWrap">
+      <!-- image sẽ được gán src dataURL -->
+      <img id="qrImg" alt="QR code" src="" />
+      <canvas id="qrCanvas" width="512" height="512" style="display:none"></canvas>
+
+      <div style="display:flex;gap:8px;">
+        <button id="shareBtn">Share / Save</button>
+        <button id="downloadBtn" class="secondary">Download (fallback)</button>
+      </div>
+
+      <small id="status">Chưa có QR</small>
+    </div>
+
+    <p class="hint">
+      Lưu ý: Web Share API với files cần HTTPS và trình duyệt hỗ trợ. Trên iOS Safari (iOS 15+) sheet sẽ hiển thị tuỳ chọn "Save Image" (lưu vào Photos) hoặc "Save to Files".
+    </p>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+<script>
+const input = document.getElementById('textInput');
+const genBtn = document.getElementById('genBtn');
+const qrImg = document.getElementById('qrImg');
+const qrCanvas = document.getElementById('qrCanvas');
+const status = document.getElementById('status');
+const shareBtn = document.getElementById('shareBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+
+async function generateQR(text) {
+  status.textContent = 'Đang tạo QR...';
+  try {
+    // Sử dụng thư viện qrcode (toCanvas -> vẽ lên canvas)
+    await QRCode.toCanvas(qrCanvas, text, {
+      width: 512,
+      margin: 1,
+      color: { dark: '#000000', light: '#ffffff' }
+    });
+    // chuyển canvas -> dataURL (png)
+    const dataUrl = qrCanvas.toDataURL('image/png');
+    qrImg.src = dataUrl;
+    status.textContent = 'QR đã sẵn sàng';
+  } catch (err) {
+    console.error(err);
+    status.textContent = 'Tạo QR lỗi: ' + (err && err.message ? err.message : err);
+  }
+}
+
+genBtn.addEventListener('click', () => {
+  const text = input.value.trim();
+  if (!text) { status.textContent = 'Vui lòng nhập text'; return; }
+  generateQR(text);
+});
+
+// download fallback: tạo link và click
+downloadBtn.addEventListener('click', () => {
+  if (!qrImg.src) { status.textContent = 'Chưa có QR để tải'; return; }
+  const a = document.createElement('a');
+  a.href = qrImg.src;
+  a.download = 'qr_code.png';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  status.textContent = 'Đã tải (kiểm tra thư mục Downloads / Files)';
+});
+
+// Share / Save: dùng Web Share API nếu hỗ trợ files
+shareBtn.addEventListener('click', async () => {
+  if (!qrImg.src) { status.textContent = 'Chưa có QR để chia sẻ'; return; }
+
+  try {
+    // fetch dataURL -> blob
+    const res = await fetch(qrImg.src);
+    const blob = await res.blob();
+    const file = new File([blob], 'qr_code.png', { type: blob.type || 'image/png' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] }) && navigator.share) {
+      await navigator.share({
+        files: [file],
+        title: 'QR Code',
+        text: 'Lưu QR này vào Photos hoặc Files'
+      });
+      status.textContent = 'Đã gọi Share sheet (xem lựa chọn trên thiết bị)';
+    } else if (navigator.share) {
+      // một số trình duyệt hỗ trợ share nhưng không share file -> share URL/text fallback
+      await navigator.share({ title: 'QR Code', text: 'Mở file để lưu', url: qrImg.src });
+      status.textContent = 'Đã gọi Share sheet (fallback URL/text)';
+    } else {
+      // fallback sang download
+      const a = document.createElement('a');
+      a.href = qrImg.src;
+      a.download = 'qr_code.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      status.textContent = 'Trình duyệt không hỗ trợ share — đã tải file';
+    }
+  } catch (err) {
+    console.error(err);
+    status.textContent = 'Share lỗi: ' + (err && err.message ? err.message : err);
+  }
+});
+
+// Auto-generate ban đầu
+generateQR(input.value);
+</script>
 </body>
 </html>
