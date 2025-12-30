@@ -3,248 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top 10 Studio Chụp Ảnh Cưới Đẹp TP.HCM (Real Photos)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Danh Sách Studio Cưới TP.HCM (Proxy Fix)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #c5a085;
-            --dark: #2c2c2c;
-            --light: #f5f5f5;
-            --white: #ffffff;
-            --transition: all 0.4s ease;
+            --primary: #b08d55;
+            --bg: #f8f5f2;
+            --card-bg: #ffffff;
+            --text: #333;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--light); color: var(--dark); line-height: 1.6; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--text); padding-bottom: 50px; }
         
-        /* Header */
-        header {
-            background: var(--white);
-            padding: 50px 20px;
-            text-align: center;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 10px; }
-        p.subtitle { color: #888; letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem; }
+        /* Typography & Layout */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        
+        header { text-align: center; padding: 60px 0 40px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary); margin-bottom: 10px; }
+        .sub-header { color: #666; font-style: italic; }
 
-        /* Container */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .studio-list { display: grid; gap: 50px; }
-
-        /* Studio Card */
+        /* Card Styles */
         .studio-card {
-            background: var(--white);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            margin-bottom: 50px;
             overflow: hidden;
-            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.02);
         }
-        .studio-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
 
-        .studio-header {
+        .card-header {
             padding: 30px;
+            border-bottom: 1px solid #f0f0f0;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 1px solid #f0f0f0;
             flex-wrap: wrap;
             gap: 20px;
         }
-        
-        .studio-info h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--primary); }
-        .studio-info p { margin-top: 8px; font-size: 0.95rem; display: flex; align-items: center; }
-        .studio-info i { margin-right: 10px; color: var(--primary); }
-        
-        .studio-meta {
-            text-align: right;
-            min-width: 200px;
-        }
-        .price-box {
-            background: #fff8f5;
-            padding: 15px;
+
+        .info-group h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #222; }
+        .info-line { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-size: 0.95rem; color: #555; }
+        .highlight { color: var(--primary); font-weight: 600; }
+
+        .price-badge {
+            background: #fdf8f3;
+            padding: 15px 25px;
             border-radius: 8px;
-            border: 1px solid #fae3d9;
-            display: inline-block;
+            border: 1px solid #efe0d1;
+            text-align: right;
+            min-width: 180px;
         }
-        .price-tag { font-size: 1.3rem; font-weight: 700; color: #a67c52; display: block; }
-        .price-label { font-size: 0.75rem; text-transform: uppercase; color: #999; }
+        .price-val { display: block; font-size: 1.4rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; }
+        .price-lbl { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #888; }
 
-        /* Gallery Grid */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr); /* 5 ảnh trên 1 hàng */
-            gap: 8px;
+        /* Gallery */
+        .gallery-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
             padding: 20px 30px;
+            scroll-behavior: smooth;
         }
-        @media (max-width: 1024px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
-        @media (max-width: 768px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 480px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
-
-        .gallery-item {
-            aspect-ratio: 2/3; /* Tỉ lệ ảnh dọc phổ biến cho ảnh cưới */
-            border-radius: 4px;
+        .gallery-scroll::-webkit-scrollbar { height: 8px; }
+        .gallery-scroll::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+        
+        .img-thumb {
+            min-width: 200px;
+            height: 300px;
+            border-radius: 6px;
             overflow: hidden;
             cursor: pointer;
             position: relative;
             background: #eee;
         }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
+        .img-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .img-thumb:hover img { transform: scale(1.1); }
+        .img-thumb::after {
+            content: '🔍';
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 2rem; opacity: 0; transition: 0.3s;
         }
-        .gallery-item:hover img { transform: scale(1.05); }
-        
-        .view-more {
-            text-align: center;
-            padding: 20px;
-            background: #fcfcfc;
-            border-top: 1px solid #f0f0f0;
-        }
-        .btn-portfolio {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            padding: 10px 30px;
-            border: 1px solid var(--dark);
-            border-radius: 30px;
-            transition: 0.3s;
-            display: inline-block;
-        }
-        .btn-portfolio:hover { background: var(--dark); color: var(--white); }
+        .img-thumb:hover::after { opacity: 1; }
 
-        /* Lightbox */
-        .lightbox {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: none; justify-content: center; align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
+        .cta-area { padding: 20px 30px 30px; text-align: center; }
+        .btn-visit {
+            display: inline-block; padding: 12px 30px;
+            border: 1px solid var(--primary); color: var(--primary);
+            text-decoration: none; border-radius: 50px;
+            font-weight: 600; transition: 0.3s;
+            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;
         }
-        .lightbox.active { display: flex; animation: fadeIn 0.3s; }
-        .lightbox-img-container { position: relative; max-width: 90%; max-height: 90%; }
-        .lightbox-img { max-height: 90vh; max-width: 100%; object-fit: contain; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
-        
-        .close-btn { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; opacity: 0.7; transition: 0.3s; }
-        .close-btn:hover { opacity: 1; }
-        
-        .nav-btn {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            color: white; font-size: 30px; padding: 20px;
-            cursor: pointer; opacity: 0.5; transition: 0.3s;
-            background: rgba(255,255,255,0.1); border-radius: 50%;
-        }
-        .nav-btn:hover { opacity: 1; background: rgba(255,255,255,0.2); }
-        .prev { left: 30px; }
-        .next { right: 30px; }
+        .btn-visit:hover { background: var(--primary); color: white; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Fullscreen Viewer */
+        .viewer {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.98);
+            z-index: 1000; display: none;
+            justify-content: center; align-items: center;
+        }
+        .viewer.active { display: flex; animation: fadeUp 0.3s; }
+        .viewer img { max-width: 95%; max-height: 95vh; box-shadow: 0 0 30px rgba(0,0,0,0.5); border-radius: 4px; }
+        
+        .close-v { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 3rem; cursor: pointer; z-index: 1001;}
+        .nav-v { 
+            position: absolute; top: 50%; transform: translateY(-50%); 
+            color: #fff; font-size: 2rem; padding: 20px; cursor: pointer;
+            background: rgba(255,255,255,0.1); border-radius: 50%; transition: 0.3s;
+        }
+        .nav-v:hover { background: rgba(255,255,255,0.3); }
+        .prev-v { left: 20px; }
+        .next-v { right: 20px; }
+
+        @keyframes fadeUp { from{opacity:0; transform:translateY(20px)} to{opacity:1; transform:translateY(0)} }
         
         /* Mobile */
         @media (max-width: 768px) {
-            .studio-header { flex-direction: column; }
-            .studio-meta { text-align: left; width: 100%; }
-            .gallery-item { aspect-ratio: 1/1; }
+            .card-header { flex-direction: column; }
+            .price-badge { width: 100%; text-align: left; }
+            .gallery-scroll { grid-template-columns: repeat(2, 1fr); }
+            h1 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Album Cưới Studio TP.HCM</h1>
-    <p class="subtitle">Tổng hợp ảnh thực tế từ Website Studio</p>
+    <div class="container">
+        <h1>Top 10 Studio TP.HCM</h1>
+        <p class="sub-header">Phong cách Studio / Indoor / Minimalist</p>
+    </div>
 </header>
 
-<div class="container" id="app"></div>
-
-<div class="lightbox" id="lightbox">
-    <span class="close-btn" onclick="closeLightbox()">&times;</span>
-    <div class="nav-btn prev" onclick="navigate(-1)">&#10094;</div>
-    <div class="lightbox-img-container">
-        <img src="" alt="" class="lightbox-img" id="lightbox-img">
+<div class="container" id="studio-container">
     </div>
-    <div class="nav-btn next" onclick="navigate(1)">&#10095;</div>
+
+<div class="viewer" id="viewer">
+    <span class="close-v" onclick="closeViewer()">&times;</span>
+    <div class="nav-v prev-v" onclick="changeImg(-1)">&#10094;</div>
+    <img src="" id="viewer-img" alt="Fullscreen">
+    <div class="nav-v next-v" onclick="changeImg(1)">&#10095;</div>
 </div>
 
 <script>
-    // Dữ liệu: Chứa link ảnh THẬT từ website các studio.
-    // Lưu ý: Nếu website studio đổi cấu trúc link, ảnh có thể lỗi -> Fallback sẽ hoạt động.
-    const studios = [
+    // Hàm tạo link Proxy để bypass chặn ảnh
+    // Sử dụng wsrv.nl - một dịch vụ xử lý ảnh công cộng uy tín
+    function getProxyUrl(originalUrl) {
+        if (!originalUrl) return 'https://via.placeholder.com/800x1200?text=No+Image';
+        // Encode URL và đi qua proxy
+        return `https://wsrv.nl/?url=${encodeURIComponent(originalUrl)}&w=800&output=jpg&q=80`;
+    }
+
+    // Dữ liệu Studio với Link ảnh THẬT
+    const data = [
         {
             name: "Tony Wedding",
-            address: "53-55 Đường số 7, Cityland Park Hills, Gò Vấp",
+            addr: "53-55 Đường số 7, Cityland Park Hills, Gò Vấp",
             phone: "093 875 11 51",
-            price: "5.500.000đ+",
-            style: "Hàn Quốc tối giản (Background trơn)",
-            portfolio: "https://tonywedding.vn/chup-anh-cuoi-phong-studio/",
-            // Ảnh lấy từ bài viết concept studio của Tony Wedding
-            images: [
-                "https://tonywedding.vn/wp-content/uploads/2021/05/chup-anh-cuoi-phong-han-quoc-1.jpg",
-                "https://tonywedding.vn/wp-content/uploads/2021/05/chup-anh-cuoi-phong-han-quoc-2.jpg",
-                "https://tonywedding.vn/wp-content/uploads/2021/05/chup-anh-cuoi-phong-han-quoc-4.jpg",
+            price: "5.500.000đ",
+            style: "Hàn Quốc, Phông trơn",
+            link: "https://tonywedding.vn/chup-anh-cuoi-phong-studio/",
+            photos: [
                 "https://tonywedding.vn/wp-content/uploads/2022/03/concept-chup-anh-cuoi-han-quoc-2022-2.jpg",
-                "https://tonywedding.vn/wp-content/uploads/2022/03/concept-chup-anh-cuoi-han-quoc-2022-5.jpg",
                 "https://tonywedding.vn/wp-content/uploads/2022/03/concept-chup-anh-cuoi-han-quoc-2022-7.jpg",
-                "https://tonywedding.vn/wp-content/uploads/2022/03/concept-chup-anh-cuoi-han-quoc-2022-9.jpg",
                 "https://tonywedding.vn/wp-content/uploads/2020/12/chup-anh-cong-studio-1.jpg",
                 "https://tonywedding.vn/wp-content/uploads/2020/12/chup-anh-cong-studio-3.jpg",
-                "https://tonywedding.vn/wp-content/uploads/2020/12/chup-anh-cong-studio-5.jpg"
+                "https://tonywedding.vn/wp-content/uploads/2021/05/chup-anh-cuoi-phong-han-quoc-2.jpg",
+                "https://tonywedding.vn/wp-content/uploads/2022/05/chup-anh-cuoi-studio-sai-gon-2022-1.jpg",
+                "https://tonywedding.vn/wp-content/uploads/2022/05/chup-anh-cuoi-studio-sai-gon-2022-2.jpg",
+                "https://tonywedding.vn/wp-content/uploads/2022/05/chup-anh-cuoi-studio-sai-gon-2022-5.jpg"
             ]
         },
         {
             name: "TuArt Wedding",
-            address: "147-149 Hồ Văn Huê, Phú Nhuận",
+            addr: "147-149 Hồ Văn Huê, Phú Nhuận",
             phone: "0888 696 888",
-            price: "8.000.000đ+",
-            style: "Ánh sáng nghệ thuật, Sang trọng",
-            portfolio: "https://tuart.net/vi/album-anh-cuoi-dep/",
-            images: [
-                "https://tuart.net/wp-content/uploads/2019/10/chup-anh-cuoi-dep-da-lat-tuart-wedding-1.jpg",
+            price: "8.000.000đ",
+            style: "Châu Âu, Sang trọng",
+            link: "https://tuart.net/vi/",
+            photos: [
                 "https://tuart.net/wp-content/uploads/2020/09/chup-anh-cuoi-dep-sai-gon-2.jpg",
                 "https://tuart.net/wp-content/uploads/2020/09/chup-anh-cuoi-dep-sai-gon-5.jpg",
-                "https://tuart.net/wp-content/uploads/2018/12/chup-anh-cuoi-dep-da-nang-tuart-wedding-4.jpg",
-                "https://tuart.net/wp-content/uploads/2018/08/chup-anh-cuoi-dep-ha-noi-tuart-wedding-1.jpg",
                 "https://tuart.net/wp-content/uploads/2019/03/chup-anh-cuoi-dep-sai-gon-tuart-wedding-5.jpg",
                 "https://tuart.net/wp-content/uploads/2019/03/chup-anh-cuoi-dep-sai-gon-tuart-wedding-7.jpg",
                 "https://tuart.net/wp-content/uploads/2019/03/chup-anh-cuoi-dep-sai-gon-tuart-wedding-8.jpg",
                 "https://tuart.net/wp-content/uploads/2019/10/chup-anh-cuoi-dep-da-lat-tuart-wedding-6.jpg",
-                "https://tuart.net/wp-content/uploads/2019/10/chup-anh-cuoi-dep-da-lat-tuart-wedding-8.jpg"
+                "https://tuart.net/wp-content/uploads/2020/04/chup-anh-cuoi-dep-ha-noi-tuart-wedding-1-1.jpg",
+                "https://tuart.net/wp-content/uploads/2020/04/chup-anh-cuoi-dep-ha-noi-tuart-wedding-3-1.jpg"
             ]
         },
         {
             name: "Nicole Bridal",
-            address: "51 Hồ Văn Huê, Phú Nhuận",
+            addr: "51 Hồ Văn Huê, Phú Nhuận",
             phone: "0902 640 490",
-            price: "10.000.000đ+",
-            style: "Minimalist, Váy cưới thiết kế",
-            portfolio: "https://nicolebridal.vn/chup-anh-cuoi/",
-            images: [
+            price: "10.000.000đ",
+            style: "Minimalist, Nhẹ nhàng",
+            link: "https://nicolebridal.vn/",
+            photos: [
                 "https://nicolebridal.vn/wp-content/uploads/2021/04/Chup-anh-cuoi-studio-phong-cach-Han-Quoc-04.jpg",
                 "https://nicolebridal.vn/wp-content/uploads/2021/04/Chup-anh-cuoi-studio-phong-cach-Han-Quoc-02.jpg",
                 "https://nicolebridal.vn/wp-content/uploads/2021/04/Chup-anh-cuoi-studio-phong-cach-Han-Quoc-05.jpg",
-                "https://nicolebridal.vn/wp-content/uploads/2021/04/Chup-anh-cuoi-studio-phong-cach-Han-Quoc-08.jpg",
                 "https://nicolebridal.vn/wp-content/uploads/2020/09/Concept-chup-anh-cuoi-trong-nha-don-gian-12.jpg",
                 "https://nicolebridal.vn/wp-content/uploads/2020/09/Concept-chup-anh-cuoi-trong-nha-don-gian-05.jpg",
                 "https://nicolebridal.vn/wp-content/uploads/2020/09/Concept-chup-anh-cuoi-trong-nha-don-gian-03.jpg",
                 "https://nicolebridal.vn/wp-content/uploads/2020/12/Anh-cuoi-phong-cach-Han-Quoc-don-gian-1.jpg",
-                "https://nicolebridal.vn/wp-content/uploads/2020/12/Anh-cuoi-phong-cach-Han-Quoc-don-gian-2.jpg",
-                "https://nicolebridal.vn/wp-content/uploads/2020/12/Anh-cuoi-phong-cach-Han-Quoc-don-gian-3.jpg"
+                "https://nicolebridal.vn/wp-content/uploads/2020/12/Anh-cuoi-phong-cach-Han-Quoc-don-gian-2.jpg"
+            ]
+        },
+        {
+            name: "Aloha Studio",
+            addr: "200 Hồ Văn Huê, Phú Nhuận",
+            phone: "0909 946 202",
+            price: "3.990.000đ",
+            style: "Trẻ trung, Giá rẻ",
+            link: "https://alohastudio.vn/",
+            photos: [
+                "https://alohastudio.vn/wp-content/uploads/2020/10/chup-hinh-cuoi-phong-cach-han-quoc-dep-01.jpg",
+                "https://alohastudio.vn/wp-content/uploads/2020/10/chup-hinh-cuoi-phong-cach-han-quoc-dep-04.jpg",
+                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-1.jpg",
+                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-2.jpg",
+                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-3.jpg",
+                "https://alohastudio.vn/wp-content/uploads/2020/10/chup-hinh-cuoi-phong-cach-han-quoc-dep-07.jpg",
+                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-5.jpg",
+                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-6.jpg"
             ]
         },
         {
             name: "Shady Bridal",
-            address: "21B Nguyễn Đình Chính, Phú Nhuận",
+            addr: "21B Nguyễn Đình Chính, Phú Nhuận",
             phone: "090 648 5659",
-            price: "5.000.000đ+",
-            style: "Hiện đại, Năng động",
-            portfolio: "https://shady.vn/hinh-cuoi/",
-            images: [
+            price: "5.000.000đ",
+            style: "Hiện đại, Chuyên nghiệp",
+            link: "https://shady.vn/",
+            photos: [
                 "https://shady.vn/public/uploads/images/2021/04/16/e0160b73c4d7e8281358.jpg",
                 "https://shady.vn/public/uploads/images/2021/04/16/5b8f66814c8100569747.jpg",
                 "https://shady.vn/public/uploads/images/2021/04/16/9f6608985149303d7c39.jpg",
-                "https://shady.vn/public/uploads/images/2021/04/16/a7f6f16f398402518055.jpg",
-                "https://shady.vn/public/uploads/images/2021/04/16/4b38d38865842813554e.jpg",
                 "https://shady.vn/public/uploads/news/2022/10/05/SHADY-6868.jpg",
                 "https://shady.vn/public/uploads/news/2022/10/05/SHADY-6887.jpg",
                 "https://shady.vn/public/uploads/news/2022/10/05/SHADY-7013.jpg",
@@ -253,38 +248,16 @@
             ]
         },
         {
-            name: "Aloha Studio",
-            address: "200 Hồ Văn Huê, Phú Nhuận",
-            phone: "0909 946 202",
-            price: "4.000.000đ+",
-            style: "Giá rẻ, Dễ thương",
-            portfolio: "https://alohastudio.vn/hinh-cuoi-dep/",
-            images: [
-                "https://alohastudio.vn/wp-content/uploads/2020/10/chup-hinh-cuoi-phong-cach-han-quoc-dep-01.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2020/10/chup-hinh-cuoi-phong-cach-han-quoc-dep-02.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2020/10/chup-hinh-cuoi-phong-cach-han-quoc-dep-04.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2020/10/chup-hinh-cuoi-phong-cach-han-quoc-dep-05.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2020/10/chup-hinh-cuoi-phong-cach-han-quoc-dep-07.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-1.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-2.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-3.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-5.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-6.jpg"
-            ]
-        },
-        {
             name: "Omni Bridal",
-            address: "1076 Lạc Long Quân, Tân Bình",
+            addr: "1076 Lạc Long Quân, Tân Bình",
             phone: "028 3971 1401",
-            price: "9.000.000đ+",
-            style: "Sang trọng, Cổ điển",
-            portfolio: "https://omni.vn/album-anh-cuoi-dep/",
-            images: [
+            price: "9.000.000đ",
+            style: "Cổ điển, Lộng lẫy",
+            link: "https://omni.vn/",
+            photos: [
                 "https://omni.vn/wp-content/uploads/2021/04/chup-hinh-cuoi-studio-omni-bridal-1.jpg",
                 "https://omni.vn/wp-content/uploads/2021/04/chup-hinh-cuoi-studio-omni-bridal-2.jpg",
                 "https://omni.vn/wp-content/uploads/2021/04/chup-hinh-cuoi-studio-omni-bridal-3.jpg",
-                "https://omni.vn/wp-content/uploads/2021/04/chup-hinh-cuoi-studio-omni-bridal-5.jpg",
-                "https://omni.vn/wp-content/uploads/2021/04/chup-hinh-cuoi-studio-omni-bridal-6.jpg",
                 "https://omni.vn/wp-content/uploads/2021/03/concept-chup-anh-cuoi-trong-studio-omni-bridal-1.jpg",
                 "https://omni.vn/wp-content/uploads/2021/03/concept-chup-anh-cuoi-trong-studio-omni-bridal-2.jpg",
                 "https://omni.vn/wp-content/uploads/2021/03/concept-chup-anh-cuoi-trong-studio-omni-bridal-3.jpg",
@@ -294,58 +267,33 @@
         },
         {
             name: "Lavender Studio",
-            address: "588/C2 Cách Mạng Tháng 8, Q.3",
+            addr: "588/C2 CMT8, Quận 3",
             phone: "091 279 78 87",
-            price: "6.000.000đ+",
-            style: "Đa dạng concept",
-            portfolio: "https://lavenderstudio.vn/bao-gia-chup-hinh-cuoi-o-studio-tphcm-lavender-studio/",
-            images: [
-                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-15.jpg",
-                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-14.jpg",
-                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-01.jpg",
-                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-02.jpg",
-                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-03.jpg",
+            price: "6.000.000đ",
+            style: "Đa dạng, Concept độc đáo",
+            link: "https://lavenderstudio.vn/",
+            photos: [
                 "https://lavenderstudio.vn/wp-content/uploads/2021/11/chup-anh-cuoi-phong-cach-han-quoc-01.jpg",
                 "https://lavenderstudio.vn/wp-content/uploads/2021/11/chup-anh-cuoi-phong-cach-han-quoc-02.jpg",
                 "https://lavenderstudio.vn/wp-content/uploads/2021/11/chup-anh-cuoi-phong-cach-han-quoc-03.jpg",
                 "https://lavenderstudio.vn/wp-content/uploads/2021/11/chup-anh-cuoi-phong-cach-han-quoc-04.jpg",
-                "https://lavenderstudio.vn/wp-content/uploads/2021/11/chup-anh-cuoi-phong-cach-han-quoc-05.jpg"
-            ]
-        },
-        {
-            name: "Louis Wu Studio",
-            address: "Q.7, TP.HCM",
-            phone: "090 920 60 76",
-            price: "20.000.000đ+",
-            style: "Cao cấp, Cinematic",
-            portfolio: "https://louiswu.net/",
-            // Louis Wu bảo mật cao, dùng link CDN của họ hoặc ảnh đại diện dự án
-            images: [
-                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-01.jpg",
-                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-02.jpg",
-                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-05.jpg",
-                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-08.jpg",
-                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-09.jpg",
-                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-01.jpg",
-                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-05.jpg",
-                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-10.jpg",
-                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-12.jpg",
-                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-15.jpg"
+                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-15.jpg",
+                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-14.jpg",
+                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-01.jpg",
+                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-02.jpg"
             ]
         },
         {
             name: "Nupakachi Wedding",
-            address: "08 Trần Khánh Dư, Q.1",
+            addr: "08 Trần Khánh Dư, Quận 1",
             phone: "08 6681 5999",
-            price: "12.000.000đ+",
-            style: "Trong trẻo, Lãng mạn",
-            portfolio: "https://nupakachi.com/",
-            images: [
+            price: "12.000.000đ",
+            style: "Trong veo, Lãng mạn",
+            link: "https://nupakachi.com/",
+            photos: [
                 "https://nupakachi.com/media/images/2020/08/chup-anh-cuoi-trong-studio-dep-nhat-ha-noi-01.jpg",
                 "https://nupakachi.com/media/images/2020/08/chup-anh-cuoi-trong-studio-dep-nhat-ha-noi-02.jpg",
                 "https://nupakachi.com/media/images/2020/08/chup-anh-cuoi-trong-studio-dep-nhat-ha-noi-03.jpg",
-                "https://nupakachi.com/media/images/2020/08/chup-anh-cuoi-trong-studio-dep-nhat-ha-noi-05.jpg",
-                "https://nupakachi.com/media/images/2020/08/chup-anh-cuoi-trong-studio-dep-nhat-ha-noi-07.jpg",
                 "https://nupakachi.com/media/images/2021/11/chup-anh-cuoi-phong-cach-han-quoc-don-gian-1.jpg",
                 "https://nupakachi.com/media/images/2021/11/chup-anh-cuoi-phong-cach-han-quoc-don-gian-2.jpg",
                 "https://nupakachi.com/media/images/2021/11/chup-anh-cuoi-phong-cach-han-quoc-don-gian-3.jpg",
@@ -354,14 +302,31 @@
             ]
         },
         {
+            name: "Louis Wu Studio",
+            addr: "Villa 01, KDC Kim Sơn, Quận 7",
+            phone: "090 920 60 76",
+            price: "20.000.000đ",
+            style: "Nghệ thuật, High-Fashion",
+            link: "https://louiswu.net/",
+            photos: [
+                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-01.jpg",
+                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-02.jpg",
+                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-05.jpg",
+                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-08.jpg",
+                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-01.jpg",
+                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-05.jpg",
+                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-10.jpg",
+                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-12.jpg"
+            ]
+        },
+        {
             name: "Liebe Studio",
-            address: "335 Trần Hưng Đạo, Q.1",
+            addr: "335 Trần Hưng Đạo, Quận 1",
             phone: "090 395 01 21",
-            price: "15.000.000đ+",
-            style: "Khoảnh khắc tự nhiên, Màu film",
-            portfolio: "https://liebestudio.com/",
-            // Liebe Studio bảo mật link rất kỹ, sử dụng link tượng trưng từ trang giới thiệu của họ
-            images: [
+            price: "15.000.000đ",
+            style: "Khoảnh khắc, Cảm xúc",
+            link: "https://liebestudio.com/",
+            photos: [
                 "https://liebestudio.com/wp-content/uploads/2019/07/L01.jpg",
                 "https://liebestudio.com/wp-content/uploads/2019/07/L02.jpg",
                 "https://liebestudio.com/wp-content/uploads/2019/07/L03.jpg",
@@ -369,110 +334,87 @@
                 "https://liebestudio.com/wp-content/uploads/2019/07/L05.jpg",
                 "https://liebestudio.com/wp-content/uploads/2020/02/K01.jpg",
                 "https://liebestudio.com/wp-content/uploads/2020/02/K02.jpg",
-                "https://liebestudio.com/wp-content/uploads/2020/02/K03.jpg",
-                "https://liebestudio.com/wp-content/uploads/2020/02/K05.jpg",
-                "https://liebestudio.com/wp-content/uploads/2020/02/K06.jpg"
+                "https://liebestudio.com/wp-content/uploads/2020/02/K03.jpg"
             ]
         }
     ];
 
-    const app = document.getElementById('app');
-
     // Render HTML
-    studios.forEach((studio, sIndex) => {
-        let galleryHTML = '';
-        studio.images.forEach((imgUrl, iIndex) => {
-            // Thêm referrerpolicy="no-referrer" để tránh bị chặn hotlink
-            // Thêm onerror để thay thế bằng ảnh placeholder nếu link chết
-            galleryHTML += `
-                <div class="gallery-item" onclick="openLightbox(${sIndex}, ${iIndex})">
-                    <img src="${imgUrl}" 
-                         referrerpolicy="no-referrer"
-                         loading="lazy" 
-                         alt="Ảnh cưới ${studio.name}"
-                         onerror="this.onerror=null; this.src='https://via.placeholder.com/600x900/eee/999?text=Anh+Bi+Chan+Hotlink';">
+    const container = document.getElementById('studio-container');
+    
+    data.forEach((item, sIdx) => {
+        let imgsHtml = '';
+        item.photos.forEach((url, iIdx) => {
+            // QUAN TRỌNG: Dùng hàm getProxyUrl để lấy ảnh qua server trung gian
+            const proxySrc = getProxyUrl(url);
+            imgsHtml += `
+                <div class="img-thumb" onclick="openViewer(${sIdx}, ${iIdx})">
+                    <img src="${proxySrc}" loading="lazy" alt="Ảnh cưới ${item.name}">
                 </div>
             `;
         });
 
-        const card = `
-            <article class="studio-card">
-                <div class="studio-header">
-                    <div class="studio-info">
-                        <h2>${sIndex + 1}. ${studio.name}</h2>
-                        <p><i>📍</i> ${studio.address}</p>
-                        <p><i>📞</i> ${studio.phone}</p>
-                        <p><i>📷</i> ${studio.style}</p>
+        const html = `
+            <div class="studio-card">
+                <div class="card-header">
+                    <div class="info-group">
+                        <h2>${sIdx + 1}. ${item.name}</h2>
+                        <div class="info-line"><span>📍</span> ${item.addr}</div>
+                        <div class="info-line"><span>📞</span> ${item.phone}</div>
+                        <div class="info-line"><span>📷</span> Style: <span class="highlight">${item.style}</span></div>
                     </div>
-                    <div class="studio-meta">
-                        <div class="price-box">
-                            <span class="price-label">Gói Studio Từ</span>
-                            <span class="price-tag">${studio.price}</span>
-                        </div>
+                    <div class="price-badge">
+                        <span class="price-lbl">Giá Gói Studio</span>
+                        <span class="price-val">${item.price}</span>
                     </div>
                 </div>
-                <div class="gallery-grid">
-                    ${galleryHTML}
+                <div class="gallery-scroll">
+                    ${imgsHtml}
                 </div>
-                <div class="view-more">
-                    <a href="${studio.portfolio}" target="_blank" class="btn-portfolio">Xem Full Album Trên Website ${studio.name}</a>
+                <div class="cta-area">
+                    <a href="${item.link}" target="_blank" class="btn-visit">Xem Chi Tiết Tại Website ${item.name} &rarr;</a>
                 </div>
-            </article>
+            </div>
         `;
-        app.innerHTML += card;
+        container.innerHTML += html;
     });
 
-    // Lightbox Logic
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    let currentStudioIndex = 0;
-    let currentImageIndex = 0;
+    // Viewer Logic
+    const viewer = document.getElementById('viewer');
+    const vImg = document.getElementById('viewer-img');
+    let currS = 0, currI = 0;
 
-    function openLightbox(sIndex, iIndex) {
-        currentStudioIndex = sIndex;
-        currentImageIndex = iIndex;
-        updateLightboxImage();
-        lightbox.classList.add('active');
+    function openViewer(s, i) {
+        currS = s; currI = i;
+        updateImg();
+        viewer.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-
-    function closeLightbox() {
-        lightbox.classList.remove('active');
+    
+    function closeViewer() {
+        viewer.classList.remove('active');
         document.body.style.overflow = 'auto';
     }
 
-    function navigate(direction) {
-        const totalImages = studios[currentStudioIndex].images.length;
-        currentImageIndex = (currentImageIndex + direction + totalImages) % totalImages;
-        updateLightboxImage();
+    function changeImg(dir) {
+        const total = data[currS].photos.length;
+        currI = (currI + dir + total) % total;
+        updateImg();
     }
 
-    function updateLightboxImage() {
-        // Cập nhật src ảnh trong lightbox
-        const newSrc = studios[currentStudioIndex].images[currentImageIndex];
-        lightboxImg.style.opacity = 0.5;
-        lightboxImg.src = newSrc;
-        
-        // Khi ảnh load xong thì hiện rõ
-        lightboxImg.onload = () => { lightboxImg.style.opacity = 1; };
-        
-        // Xử lý lỗi trong lightbox
-        lightboxImg.onerror = () => {
-            lightboxImg.src = 'https://via.placeholder.com/800x1200/333/fff?text=Anh+Khong+Hien+Thi+Duoc';
-            lightboxImg.style.opacity = 1;
-        }
+    function updateImg() {
+        // Cũng dùng proxy cho ảnh Fullscreen để đảm bảo hiển thị
+        vImg.src = getProxyUrl(data[currS].photos[currI]);
     }
 
-    // Event Listeners
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox || e.target.classList.contains('lightbox-img-container')) closeLightbox();
+    // Events
+    viewer.addEventListener('click', e => { if(e.target === viewer) closeViewer() });
+    document.addEventListener('keydown', e => {
+        if(e.key === "Escape") closeViewer();
+        if(e.key === "ArrowLeft") changeImg(-1);
+        if(e.key === "ArrowRight") changeImg(1);
     });
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === "Escape") closeLightbox();
-        if (e.key === "ArrowLeft") navigate(-1);
-        if (e.key === "ArrowRight") navigate(1);
-    });
 </script>
 
 </body>
