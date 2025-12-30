@@ -1,421 +1,258 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh Sách Studio Cưới TP.HCM (Proxy Fix)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #b08d55;
-            --bg: #f8f5f2;
-            --card-bg: #ffffff;
-            --text: #333;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thiệp cưới — Nguyễn Văn An & Trần Thị Bình</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--text); padding-bottom: 50px; }
-        
-        /* Typography & Layout */
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        
-        header { text-align: center; padding: 60px 0 40px; }
-        h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary); margin-bottom: 10px; }
-        .sub-header { color: #666; font-style: italic; }
+  <!-- Luxury wedding fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
 
-        /* Card Styles */
-        .studio-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            margin-bottom: 50px;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.02);
-        }
+  <style>
+    :root{
+      --cream:#FCF8F2;
+      --ivory:#F6EFE6;
+      --gold:#C7A56B;
+      --gold-soft:#E6D3A3;
+      --text:#3A2E2A;
+      --muted:#8A7E75;
+      --card:#ffffff;
+    }
 
-        .card-header {
-            padding: 30px;
-            border-bottom: 1px solid #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--cream);color:var(--text)}
+    body{font-family:'Cormorant Garamond', serif;overflow-x:hidden}
 
-        .info-group h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #222; }
-        .info-line { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-size: 0.95rem; color: #555; }
-        .highlight { color: var(--primary); font-weight: 600; }
+    /* ===== BACKGROUND FLOW ===== */
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(199,165,107,.12), transparent 40%),
+        radial-gradient(circle at 80% 90%, rgba(199,165,107,.15), transparent 45%);
+      animation:bgFloat 18s ease-in-out infinite alternate;
+      z-index:-1;
+    }
+    @keyframes bgFloat{
+      from{transform:translateY(0)}
+      to{transform:translateY(-40px)}
+    }
 
-        .price-badge {
-            background: #fdf8f3;
-            padding: 15px 25px;
-            border-radius: 8px;
-            border: 1px solid #efe0d1;
-            text-align: right;
-            min-width: 180px;
-        }
-        .price-val { display: block; font-size: 1.4rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; }
-        .price-lbl { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+    /* ===== HERO ===== */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:24px;
+    }
 
-        /* Gallery */
-        .gallery-scroll {
-            display: flex;
-            overflow-x: auto;
-            gap: 10px;
-            padding: 20px 30px;
-            scroll-behavior: smooth;
-        }
-        .gallery-scroll::-webkit-scrollbar { height: 8px; }
-        .gallery-scroll::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
-        
-        .img-thumb {
-            min-width: 200px;
-            height: 300px;
-            border-radius: 6px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-            background: #eee;
-        }
-        .img-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-        .img-thumb:hover img { transform: scale(1.1); }
-        .img-thumb::after {
-            content: '🔍';
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 2rem; opacity: 0; transition: 0.3s;
-        }
-        .img-thumb:hover::after { opacity: 1; }
+    .save-date{
+      letter-spacing:4px;
+      font-size:14px;
+      color:var(--muted);
+      animation:fadeDown 1.2s ease both;
+    }
 
-        .cta-area { padding: 20px 30px 30px; text-align: center; }
-        .btn-visit {
-            display: inline-block; padding: 12px 30px;
-            border: 1px solid var(--primary); color: var(--primary);
-            text-decoration: none; border-radius: 50px;
-            font-weight: 600; transition: 0.3s;
-            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;
-        }
-        .btn-visit:hover { background: var(--primary); color: white; }
+    .names{
+      font-family:'Great Vibes', cursive;
+      font-size:clamp(56px,9vw,96px);
+      color:var(--gold);
+      margin:20px 0 10px;
+      animation:zoomIn 1.6s ease both;
+    }
 
-        /* Fullscreen Viewer */
-        .viewer {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.98);
-            z-index: 1000; display: none;
-            justify-content: center; align-items: center;
-        }
-        .viewer.active { display: flex; animation: fadeUp 0.3s; }
-        .viewer img { max-width: 95%; max-height: 95vh; box-shadow: 0 0 30px rgba(0,0,0,0.5); border-radius: 4px; }
-        
-        .close-v { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 3rem; cursor: pointer; z-index: 1001;}
-        .nav-v { 
-            position: absolute; top: 50%; transform: translateY(-50%); 
-            color: #fff; font-size: 2rem; padding: 20px; cursor: pointer;
-            background: rgba(255,255,255,0.1); border-radius: 50%; transition: 0.3s;
-        }
-        .nav-v:hover { background: rgba(255,255,255,0.3); }
-        .prev-v { left: 20px; }
-        .next-v { right: 20px; }
+    .divider{
+      width:120px;height:1px;
+      background:linear-gradient(90deg,transparent,var(--gold),transparent);
+      margin:20px auto;
+      animation:expand 1.4s ease both;
+    }
 
-        @keyframes fadeUp { from{opacity:0; transform:translateY(20px)} to{opacity:1; transform:translateY(0)} }
-        
-        /* Mobile */
-        @media (max-width: 768px) {
-            .card-header { flex-direction: column; }
-            .price-badge { width: 100%; text-align: left; }
-            .gallery-scroll { grid-template-columns: repeat(2, 1fr); }
-            h1 { font-size: 2rem; }
-        }
-    </style>
+    .wedding-date{
+      font-family:'Playfair Display', serif;
+      font-size:20px;
+      letter-spacing:2px;
+      animation:fadeUp 1.4s ease both;
+    }
+
+    /* ===== SECTION ===== */
+    section{
+      max-width:1000px;
+      margin:0 auto 120px;
+      padding:0 20px;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:24px;
+      padding:40px 28px;
+      box-shadow:0 30px 80px rgba(0,0,0,.08);
+      transform:translateY(40px);
+      opacity:0;
+      transition:1.2s ease;
+    }
+    .card.show{transform:none;opacity:1}
+
+    h2{
+      font-family:'Playfair Display', serif;
+      font-size:36px;
+      text-align:center;
+      margin-bottom:24px;
+      position:relative;
+    }
+    h2:after{
+      content:"❦";
+      display:block;
+      color:var(--gold);
+      margin-top:8px;
+    }
+
+    .info{text-align:center;font-size:20px;line-height:1.8}
+    .muted{color:var(--muted)}
+
+    /* ===== GALLERY ===== */
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+      margin-top:30px;
+    }
+    .gallery img{
+      width:100%;
+      height:260px;
+      object-fit:cover;
+      border-radius:18px;
+      transition:.8s ease;
+    }
+    .gallery img:hover{
+      transform:scale(1.05);
+      box-shadow:0 18px 40px rgba(0,0,0,.18)
+    }
+
+    /* ===== MUSIC ===== */
+    .music{
+      position:fixed;
+      bottom:24px;right:24px;
+      width:56px;height:56px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--gold),var(--gold-soft));
+      display:grid;place-items:center;
+      color:white;font-size:22px;
+      cursor:pointer;
+      box-shadow:0 10px 30px rgba(199,165,107,.5);
+      animation:pulse 2.5s infinite;
+    }
+    @keyframes pulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(199,165,107,.6)}
+      50%{box-shadow:0 0 0 18px rgba(199,165,107,0)}
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+    @keyframes fadeDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:none}}
+    @keyframes zoomIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+    @keyframes expand{from{width:0}to{width:120px}}
+
+    footer{text-align:center;color:var(--muted);padding-bottom:60px}
+
+    @media(max-width:600px){
+      .names{font-size:60px}
+      h2{font-size:28px}
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <h1>Top 10 Studio TP.HCM</h1>
-        <p class="sub-header">Phong cách Studio / Indoor / Minimalist</p>
+  <!-- INTRO SCREEN -->
+  <div id="intro" style="position:fixed;inset:0;background:linear-gradient(135deg,#FCF8F2,#F3E7D3);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:1.4s ease">
+    <div style="font-family:'Great Vibes',cursive;font-size:72px;color:#C7A56B;animation:introZoom 1.8s ease both">An & Bình</div>
+    <div style="margin:20px 0;width:140px;height:1px;background:linear-gradient(90deg,transparent,#C7A56B,transparent);animation:introLine 1.6s ease both"></div>
+    <div style="letter-spacing:4px;color:#8A7E75;font-size:14px;animation:introFade 2s ease both">WEDDING INVITATION</div>
+    <button id="openInvite" style="margin-top:40px;padding:14px 32px;border-radius:40px;border:none;background:linear-gradient(135deg,#C7A56B,#E6D3A3);color:white;font-family:'Playfair Display',serif;font-size:16px;letter-spacing:2px;cursor:pointer;box-shadow:0 20px 50px rgba(199,165,107,.45);animation:introFade 2.4s ease both">MỞ THIỆP</button>
+  </div>
+
+  <style>
+    @keyframes introZoom{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+    @keyframes introLine{from{width:0}to{width:140px}}
+    @keyframes introFade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  </style>
+
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="save-date">SAVE THE DATE</div>
+    <div class="names">An & Bình</div>
+    <div class="divider"></div>
+    <div class="wedding-date">12 · 04 · 2026</div>
+  </div>
+
+  <!-- INFO -->
+  <section>
+    <div class="card">
+      <h2>Trân Trọng Kính Mời</h2>
+      <div class="info">
+        Chúng tôi hân hạnh mời bạn đến chung vui<br>
+        trong lễ thành hôn của
+        <strong>Nguyễn Văn An</strong> & <strong>Trần Thị Bình</strong><br><br>
+        <span class="muted">10:00 · Chủ Nhật · 12/04/2026</span><br>
+        Nhà hàng Hoa Sen – Quận 1, TP.HCM
+      </div>
     </div>
-</header>
+  </section>
 
-<div class="container" id="studio-container">
+  <!-- GALLERY -->
+  <section>
+    <div class="card">
+      <h2>Khoảnh Khắc Yêu Thương</h2>
+      <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop">
+        <img src="https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?q=80&w=1200&auto=format&fit=crop">
+        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1200&auto=format&fit=crop">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop">
+      </div>
     </div>
+  </section>
 
-<div class="viewer" id="viewer">
-    <span class="close-v" onclick="closeViewer()">&times;</span>
-    <div class="nav-v prev-v" onclick="changeImg(-1)">&#10094;</div>
-    <img src="" id="viewer-img" alt="Fullscreen">
-    <div class="nav-v next-v" onclick="changeImg(1)">&#10095;</div>
-</div>
+  <footer>
+    Hân hạnh được đón tiếp quý khách 💛
+  </footer>
 
-<script>
-    // Hàm tạo link Proxy để bypass chặn ảnh
-    // Sử dụng wsrv.nl - một dịch vụ xử lý ảnh công cộng uy tín
-    function getProxyUrl(originalUrl) {
-        if (!originalUrl) return 'https://via.placeholder.com/800x1200?text=No+Image';
-        // Encode URL và đi qua proxy
-        return `https://wsrv.nl/?url=${encodeURIComponent(originalUrl)}&w=800&output=jpg&q=80`;
-    }
+  <!-- MUSIC -->
+  <div class="music" id="music">♫</div>
+  <audio id="audio" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+  </audio>
 
-    // Dữ liệu Studio với Link ảnh THẬT
-    const data = [
-        {
-            name: "Tony Wedding",
-            addr: "53-55 Đường số 7, Cityland Park Hills, Gò Vấp",
-            phone: "093 875 11 51",
-            price: "5.500.000đ",
-            style: "Hàn Quốc, Phông trơn",
-            link: "https://tonywedding.vn/chup-anh-cuoi-phong-studio/",
-            photos: [
-                "https://tonywedding.vn/wp-content/uploads/2022/03/concept-chup-anh-cuoi-han-quoc-2022-2.jpg",
-                "https://tonywedding.vn/wp-content/uploads/2022/03/concept-chup-anh-cuoi-han-quoc-2022-7.jpg",
-                "https://tonywedding.vn/wp-content/uploads/2020/12/chup-anh-cong-studio-1.jpg",
-                "https://tonywedding.vn/wp-content/uploads/2020/12/chup-anh-cong-studio-3.jpg",
-                "https://tonywedding.vn/wp-content/uploads/2021/05/chup-anh-cuoi-phong-han-quoc-2.jpg",
-                "https://tonywedding.vn/wp-content/uploads/2022/05/chup-anh-cuoi-studio-sai-gon-2022-1.jpg",
-                "https://tonywedding.vn/wp-content/uploads/2022/05/chup-anh-cuoi-studio-sai-gon-2022-2.jpg",
-                "https://tonywedding.vn/wp-content/uploads/2022/05/chup-anh-cuoi-studio-sai-gon-2022-5.jpg"
-            ]
-        },
-        {
-            name: "TuArt Wedding",
-            addr: "147-149 Hồ Văn Huê, Phú Nhuận",
-            phone: "0888 696 888",
-            price: "8.000.000đ",
-            style: "Châu Âu, Sang trọng",
-            link: "https://tuart.net/vi/",
-            photos: [
-                "https://tuart.net/wp-content/uploads/2020/09/chup-anh-cuoi-dep-sai-gon-2.jpg",
-                "https://tuart.net/wp-content/uploads/2020/09/chup-anh-cuoi-dep-sai-gon-5.jpg",
-                "https://tuart.net/wp-content/uploads/2019/03/chup-anh-cuoi-dep-sai-gon-tuart-wedding-5.jpg",
-                "https://tuart.net/wp-content/uploads/2019/03/chup-anh-cuoi-dep-sai-gon-tuart-wedding-7.jpg",
-                "https://tuart.net/wp-content/uploads/2019/03/chup-anh-cuoi-dep-sai-gon-tuart-wedding-8.jpg",
-                "https://tuart.net/wp-content/uploads/2019/10/chup-anh-cuoi-dep-da-lat-tuart-wedding-6.jpg",
-                "https://tuart.net/wp-content/uploads/2020/04/chup-anh-cuoi-dep-ha-noi-tuart-wedding-1-1.jpg",
-                "https://tuart.net/wp-content/uploads/2020/04/chup-anh-cuoi-dep-ha-noi-tuart-wedding-3-1.jpg"
-            ]
-        },
-        {
-            name: "Nicole Bridal",
-            addr: "51 Hồ Văn Huê, Phú Nhuận",
-            phone: "0902 640 490",
-            price: "10.000.000đ",
-            style: "Minimalist, Nhẹ nhàng",
-            link: "https://nicolebridal.vn/",
-            photos: [
-                "https://nicolebridal.vn/wp-content/uploads/2021/04/Chup-anh-cuoi-studio-phong-cach-Han-Quoc-04.jpg",
-                "https://nicolebridal.vn/wp-content/uploads/2021/04/Chup-anh-cuoi-studio-phong-cach-Han-Quoc-02.jpg",
-                "https://nicolebridal.vn/wp-content/uploads/2021/04/Chup-anh-cuoi-studio-phong-cach-Han-Quoc-05.jpg",
-                "https://nicolebridal.vn/wp-content/uploads/2020/09/Concept-chup-anh-cuoi-trong-nha-don-gian-12.jpg",
-                "https://nicolebridal.vn/wp-content/uploads/2020/09/Concept-chup-anh-cuoi-trong-nha-don-gian-05.jpg",
-                "https://nicolebridal.vn/wp-content/uploads/2020/09/Concept-chup-anh-cuoi-trong-nha-don-gian-03.jpg",
-                "https://nicolebridal.vn/wp-content/uploads/2020/12/Anh-cuoi-phong-cach-Han-Quoc-don-gian-1.jpg",
-                "https://nicolebridal.vn/wp-content/uploads/2020/12/Anh-cuoi-phong-cach-Han-Quoc-don-gian-2.jpg"
-            ]
-        },
-        {
-            name: "Aloha Studio",
-            addr: "200 Hồ Văn Huê, Phú Nhuận",
-            phone: "0909 946 202",
-            price: "3.990.000đ",
-            style: "Trẻ trung, Giá rẻ",
-            link: "https://alohastudio.vn/",
-            photos: [
-                "https://alohastudio.vn/wp-content/uploads/2020/10/chup-hinh-cuoi-phong-cach-han-quoc-dep-01.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2020/10/chup-hinh-cuoi-phong-cach-han-quoc-dep-04.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-1.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-2.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-3.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2020/10/chup-hinh-cuoi-phong-cach-han-quoc-dep-07.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-5.jpg",
-                "https://alohastudio.vn/wp-content/uploads/2022/02/Concept-chup-anh-cuoi-Han-Quoc-Aloha-Studio-6.jpg"
-            ]
-        },
-        {
-            name: "Shady Bridal",
-            addr: "21B Nguyễn Đình Chính, Phú Nhuận",
-            phone: "090 648 5659",
-            price: "5.000.000đ",
-            style: "Hiện đại, Chuyên nghiệp",
-            link: "https://shady.vn/",
-            photos: [
-                "https://shady.vn/public/uploads/images/2021/04/16/e0160b73c4d7e8281358.jpg",
-                "https://shady.vn/public/uploads/images/2021/04/16/5b8f66814c8100569747.jpg",
-                "https://shady.vn/public/uploads/images/2021/04/16/9f6608985149303d7c39.jpg",
-                "https://shady.vn/public/uploads/news/2022/10/05/SHADY-6868.jpg",
-                "https://shady.vn/public/uploads/news/2022/10/05/SHADY-6887.jpg",
-                "https://shady.vn/public/uploads/news/2022/10/05/SHADY-7013.jpg",
-                "https://shady.vn/public/uploads/news/2022/10/05/SHADY-7080.jpg",
-                "https://shady.vn/public/uploads/news/2022/10/05/SHADY-7157.jpg"
-            ]
-        },
-        {
-            name: "Omni Bridal",
-            addr: "1076 Lạc Long Quân, Tân Bình",
-            phone: "028 3971 1401",
-            price: "9.000.000đ",
-            style: "Cổ điển, Lộng lẫy",
-            link: "https://omni.vn/",
-            photos: [
-                "https://omni.vn/wp-content/uploads/2021/04/chup-hinh-cuoi-studio-omni-bridal-1.jpg",
-                "https://omni.vn/wp-content/uploads/2021/04/chup-hinh-cuoi-studio-omni-bridal-2.jpg",
-                "https://omni.vn/wp-content/uploads/2021/04/chup-hinh-cuoi-studio-omni-bridal-3.jpg",
-                "https://omni.vn/wp-content/uploads/2021/03/concept-chup-anh-cuoi-trong-studio-omni-bridal-1.jpg",
-                "https://omni.vn/wp-content/uploads/2021/03/concept-chup-anh-cuoi-trong-studio-omni-bridal-2.jpg",
-                "https://omni.vn/wp-content/uploads/2021/03/concept-chup-anh-cuoi-trong-studio-omni-bridal-3.jpg",
-                "https://omni.vn/wp-content/uploads/2021/03/concept-chup-anh-cuoi-trong-studio-omni-bridal-4.jpg",
-                "https://omni.vn/wp-content/uploads/2021/03/concept-chup-anh-cuoi-trong-studio-omni-bridal-5.jpg"
-            ]
-        },
-        {
-            name: "Lavender Studio",
-            addr: "588/C2 CMT8, Quận 3",
-            phone: "091 279 78 87",
-            price: "6.000.000đ",
-            style: "Đa dạng, Concept độc đáo",
-            link: "https://lavenderstudio.vn/",
-            photos: [
-                "https://lavenderstudio.vn/wp-content/uploads/2021/11/chup-anh-cuoi-phong-cach-han-quoc-01.jpg",
-                "https://lavenderstudio.vn/wp-content/uploads/2021/11/chup-anh-cuoi-phong-cach-han-quoc-02.jpg",
-                "https://lavenderstudio.vn/wp-content/uploads/2021/11/chup-anh-cuoi-phong-cach-han-quoc-03.jpg",
-                "https://lavenderstudio.vn/wp-content/uploads/2021/11/chup-anh-cuoi-phong-cach-han-quoc-04.jpg",
-                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-15.jpg",
-                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-14.jpg",
-                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-01.jpg",
-                "https://lavenderstudio.vn/wp-content/uploads/2020/09/chup-hinh-cuoi-o-studio-02.jpg"
-            ]
-        },
-        {
-            name: "Nupakachi Wedding",
-            addr: "08 Trần Khánh Dư, Quận 1",
-            phone: "08 6681 5999",
-            price: "12.000.000đ",
-            style: "Trong veo, Lãng mạn",
-            link: "https://nupakachi.com/",
-            photos: [
-                "https://nupakachi.com/media/images/2020/08/chup-anh-cuoi-trong-studio-dep-nhat-ha-noi-01.jpg",
-                "https://nupakachi.com/media/images/2020/08/chup-anh-cuoi-trong-studio-dep-nhat-ha-noi-02.jpg",
-                "https://nupakachi.com/media/images/2020/08/chup-anh-cuoi-trong-studio-dep-nhat-ha-noi-03.jpg",
-                "https://nupakachi.com/media/images/2021/11/chup-anh-cuoi-phong-cach-han-quoc-don-gian-1.jpg",
-                "https://nupakachi.com/media/images/2021/11/chup-anh-cuoi-phong-cach-han-quoc-don-gian-2.jpg",
-                "https://nupakachi.com/media/images/2021/11/chup-anh-cuoi-phong-cach-han-quoc-don-gian-3.jpg",
-                "https://nupakachi.com/media/images/2021/11/chup-anh-cuoi-phong-cach-han-quoc-don-gian-4.jpg",
-                "https://nupakachi.com/media/images/2021/11/chup-anh-cuoi-phong-cach-han-quoc-don-gian-5.jpg"
-            ]
-        },
-        {
-            name: "Louis Wu Studio",
-            addr: "Villa 01, KDC Kim Sơn, Quận 7",
-            phone: "090 920 60 76",
-            price: "20.000.000đ",
-            style: "Nghệ thuật, High-Fashion",
-            link: "https://louiswu.net/",
-            photos: [
-                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-01.jpg",
-                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-02.jpg",
-                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-05.jpg",
-                "https://louiswu.net/wp-content/uploads/2022/02/PRE-WEDDING-PHOTO-SHOOT-IN-SAIGON-08.jpg",
-                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-01.jpg",
-                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-05.jpg",
-                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-10.jpg",
-                "https://louiswu.net/wp-content/uploads/2020/12/pre-wedding-photo-shoot-in-ho-chi-minh-city-12.jpg"
-            ]
-        },
-        {
-            name: "Liebe Studio",
-            addr: "335 Trần Hưng Đạo, Quận 1",
-            phone: "090 395 01 21",
-            price: "15.000.000đ",
-            style: "Khoảnh khắc, Cảm xúc",
-            link: "https://liebestudio.com/",
-            photos: [
-                "https://liebestudio.com/wp-content/uploads/2019/07/L01.jpg",
-                "https://liebestudio.com/wp-content/uploads/2019/07/L02.jpg",
-                "https://liebestudio.com/wp-content/uploads/2019/07/L03.jpg",
-                "https://liebestudio.com/wp-content/uploads/2019/07/L04.jpg",
-                "https://liebestudio.com/wp-content/uploads/2019/07/L05.jpg",
-                "https://liebestudio.com/wp-content/uploads/2020/02/K01.jpg",
-                "https://liebestudio.com/wp-content/uploads/2020/02/K02.jpg",
-                "https://liebestudio.com/wp-content/uploads/2020/02/K03.jpg"
-            ]
-        }
-    ];
+  <script>
+      // INTRO open
+    const intro=document.getElementById('intro');
+    const openInvite=document.getElementById('openInvite');
+    openInvite.onclick=()=>{
+      intro.style.opacity='0';
+      intro.style.pointerEvents='none';
+      setTimeout(()=>intro.remove(),1400);
+    };
 
-    // Render HTML
-    const container = document.getElementById('studio-container');
-    
-    data.forEach((item, sIdx) => {
-        let imgsHtml = '';
-        item.photos.forEach((url, iIdx) => {
-            // QUAN TRỌNG: Dùng hàm getProxyUrl để lấy ảnh qua server trung gian
-            const proxySrc = getProxyUrl(url);
-            imgsHtml += `
-                <div class="img-thumb" onclick="openViewer(${sIdx}, ${iIdx})">
-                    <img src="${proxySrc}" loading="lazy" alt="Ảnh cưới ${item.name}">
-                </div>
-            `;
-        });
+    // reveal on scroll
+    const cards=document.querySelectorAll('.card');
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')})
+    },{threshold:.2});
+    cards.forEach(c=>io.observe(c));
 
-        const html = `
-            <div class="studio-card">
-                <div class="card-header">
-                    <div class="info-group">
-                        <h2>${sIdx + 1}. ${item.name}</h2>
-                        <div class="info-line"><span>📍</span> ${item.addr}</div>
-                        <div class="info-line"><span>📞</span> ${item.phone}</div>
-                        <div class="info-line"><span>📷</span> Style: <span class="highlight">${item.style}</span></div>
-                    </div>
-                    <div class="price-badge">
-                        <span class="price-lbl">Giá Gói Studio</span>
-                        <span class="price-val">${item.price}</span>
-                    </div>
-                </div>
-                <div class="gallery-scroll">
-                    ${imgsHtml}
-                </div>
-                <div class="cta-area">
-                    <a href="${item.link}" target="_blank" class="btn-visit">Xem Chi Tiết Tại Website ${item.name} &rarr;</a>
-                </div>
-            </div>
-        `;
-        container.innerHTML += html;
-    });
-
-    // Viewer Logic
-    const viewer = document.getElementById('viewer');
-    const vImg = document.getElementById('viewer-img');
-    let currS = 0, currI = 0;
-
-    function openViewer(s, i) {
-        currS = s; currI = i;
-        updateImg();
-        viewer.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeViewer() {
-        viewer.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-
-    function changeImg(dir) {
-        const total = data[currS].photos.length;
-        currI = (currI + dir + total) % total;
-        updateImg();
-    }
-
-    function updateImg() {
-        // Cũng dùng proxy cho ảnh Fullscreen để đảm bảo hiển thị
-        vImg.src = getProxyUrl(data[currS].photos[currI]);
-    }
-
-    // Events
-    viewer.addEventListener('click', e => { if(e.target === viewer) closeViewer() });
-    document.addEventListener('keydown', e => {
-        if(e.key === "Escape") closeViewer();
-        if(e.key === "ArrowLeft") changeImg(-1);
-        if(e.key === "ArrowRight") changeImg(1);
-    });
-
-</script>
-
+    // music toggle
+    const music=document.getElementById('music');
+    const audio=document.getElementById('audio');
+    let play=false;
+    music.onclick=()=>{
+      play?audio.pause():audio.play();
+      play=!play;
+      music.style.opacity=play?1:.6;
+    };
+  </script>
 </body>
 </html>
