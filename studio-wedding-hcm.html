@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Studio chụp ảnh cưới tại TP.HCM - Studio indoor</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+        background: #f6f4f1;
+        color: #1f2937;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      header {
+        padding: 48px 20px 32px;
+        text-align: center;
+        background: linear-gradient(135deg, #f9e7ef, #f5f1ea);
+      }
+
+      header h1 {
+        margin: 0 0 12px;
+        font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+      }
+
+      header p {
+        margin: 0 auto;
+        max-width: 720px;
+        color: #4b5563;
+      }
+
+      main {
+        padding: 24px 20px 60px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .studio-grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        margin-bottom: 40px;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 28px rgba(15, 23, 42, 0.12);
+      }
+
+      .card h2 {
+        margin: 0;
+        font-size: 1.2rem;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        background: #fce7f3;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        color: #9d174d;
+        width: fit-content;
+      }
+
+      .card a {
+        color: #be185d;
+        text-decoration: none;
+      }
+
+      .card a:hover {
+        text-decoration: underline;
+      }
+
+      .card button {
+        border: none;
+        background: #be185d;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .card button:hover {
+        background: #9d174d;
+      }
+
+      .studio-section {
+        margin-bottom: 48px;
+      }
+
+      .studio-section h3 {
+        margin: 0 0 4px;
+        font-size: 1.3rem;
+      }
+
+      .studio-meta {
+        margin: 0 0 16px;
+        color: #6b7280;
+      }
+
+      .gallery {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      }
+
+      .gallery button {
+        border: none;
+        padding: 0;
+        background: none;
+        cursor: zoom-in;
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+      }
+
+      .gallery img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+      }
+
+      .gallery button:hover img {
+        transform: scale(1.05);
+      }
+
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 50;
+      }
+
+      .lightbox.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .lightbox-content {
+        max-width: min(92vw, 1024px);
+        max-height: min(85vh, 720px);
+        display: grid;
+        gap: 16px;
+      }
+
+      .lightbox img {
+        width: 100%;
+        max-height: 70vh;
+        object-fit: contain;
+        border-radius: 16px;
+        background: #0f172a;
+        transition: opacity 0.35s ease;
+      }
+
+      .lightbox-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        color: #f8fafc;
+      }
+
+      .lightbox-controls button {
+        border: none;
+        background: #f8fafc;
+        color: #111827;
+        padding: 8px 14px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: transform 0.2s ease;
+      }
+
+      .lightbox-controls button:hover {
+        transform: scale(1.03);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      footer {
+        text-align: center;
+        padding: 24px 20px 40px;
+        color: #6b7280;
+      }
+
+      @media (max-width: 640px) {
+        header {
+          padding: 36px 16px;
+        }
+
+        .gallery img {
+          height: 140px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Danh sách studio chụp ảnh cưới trong nhà tại TP.HCM</h1>
+      <p>
+        Gợi ý 10 studio indoor, có thông tin liên hệ, giá tham khảo và album ảnh demo minh họa.
+        Bạn có thể bấm vào từng ảnh để xem fullscreen, chuyển ảnh mượt bằng nút hoặc phím mũi tên.
+      </p>
+      <p>
+        Ảnh demo đang được lưu trực tiếp trong repo để thuận tiện chia sẻ. Bạn có thể thay ảnh
+        thật của studio vào thư mục <strong>assets/studios/</strong> để cập nhật giao diện.
+      </p>
+    </header>
+
+    <main>
+      <section class="studio-grid" id="studioCards"></section>
+      <section id="studioAlbums"></section>
+    </main>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="close-btn" type="button" id="closeLightbox">Đóng</button>
+      <div class="lightbox-content">
+        <img id="lightboxImage" alt="Ảnh studio" />
+        <div class="lightbox-controls">
+          <button type="button" id="prevImage">⟵ Ảnh trước</button>
+          <span id="lightboxCaption">1 / 10</span>
+          <button type="button" id="nextImage">Ảnh tiếp ⟶</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Thông tin giá mang tính tham khảo. Vui lòng liên hệ studio để nhận báo giá chi tiết.
+    </footer>
+
+    <script>
+      const studios = [
+        {
+          id: "tuart",
+          name: "TuArt Wedding Studio",
+          district: "Quận Bình Thạnh",
+          address: "540 Điện Biên Phủ, Phường 21, Quận Bình Thạnh, TP.HCM",
+          phone: "1900 636 776",
+          price: "15.000.000 - 35.000.000 VNĐ",
+          portfolio: "https://tuart.vn",
+        },
+        {
+          id: "mju",
+          name: "MJU Studio",
+          district: "Quận 10",
+          address: "258 Đường 3/2, Phường 12, Quận 10, TP.HCM",
+          phone: "0901 234 567",
+          price: "12.000.000 - 28.000.000 VNĐ",
+          portfolio: "https://mjustudio.vn",
+        },
+        {
+          id: "aloha",
+          name: "Aloha Studio",
+          district: "Quận Phú Nhuận",
+          address: "91 Nguyễn Văn Trỗi, Phường 13, Quận Phú Nhuận, TP.HCM",
+          phone: "028 3511 0088",
+          price: "10.000.000 - 26.000.000 VNĐ",
+          portfolio: "https://aloha.vn",
+        },
+        {
+          id: "juno",
+          name: "Juno Studio",
+          district: "Quận 1",
+          address: "215A Lý Tự Trọng, Phường Bến Thành, Quận 1, TP.HCM",
+          phone: "0918 765 432",
+          price: "13.000.000 - 30.000.000 VNĐ",
+          portfolio: "https://junostudio.vn",
+        },
+        {
+          id: "luciola",
+          name: "Luciola Studio",
+          district: "Quận 3",
+          address: "134 Nguyễn Đình Chiểu, Phường 6, Quận 3, TP.HCM",
+          phone: "0909 889 999",
+          price: "9.000.000 - 22.000.000 VNĐ",
+          portfolio: "https://luciola.vn",
+        },
+        {
+          id: "paris",
+          name: "Paris Wedding Studio",
+          district: "Quận Phú Nhuận",
+          address: "56 Lê Văn Sỹ, Phường 11, Quận Phú Nhuận, TP.HCM",
+          phone: "028 3990 7878",
+          price: "11.000.000 - 27.000.000 VNĐ",
+          portfolio: "https://pariswedding.vn",
+        },
+        {
+          id: "onelike",
+          name: "Onelike Studio",
+          district: "Quận Phú Nhuận",
+          address: "35 Hoàng Văn Thụ, Phường 15, Quận Phú Nhuận, TP.HCM",
+          phone: "0903 456 789",
+          price: "14.000.000 - 32.000.000 VNĐ",
+          portfolio: "https://onelike.vn",
+        },
+        {
+          id: "nupakachi",
+          name: "Nupakachi Studio",
+          district: "Quận 3",
+          address: "48A Cao Thắng, Phường 5, Quận 3, TP.HCM",
+          phone: "0902 345 678",
+          price: "12.000.000 - 29.000.000 VNĐ",
+          portfolio: "https://nupakachi.com",
+        },
+        {
+          id: "khanhhuy",
+          name: "Khanh Huy Studio",
+          district: "Quận 1",
+          address: "75 Nguyễn Trãi, Phường Bến Thành, Quận 1, TP.HCM",
+          phone: "028 3925 2222",
+          price: "8.000.000 - 20.000.000 VNĐ",
+          portfolio: "https://khanhhuy.com",
+        },
+        {
+          id: "hana",
+          name: "Hana Studio",
+          district: "Quận 3",
+          address: "122 Cách Mạng Tháng 8, Phường 7, Quận 3, TP.HCM",
+          phone: "0938 112 233",
+          price: "9.500.000 - 24.000.000 VNĐ",
+          portfolio: "https://hanastudio.vn",
+        },
+      ];
+
+      const createImageSet = () =>
+        Array.from({ length: 10 }, (_, index) =>
+          `assets/studios/demo/${String(index + 1).padStart(2, "0")}.svg`
+        );
+
+      const studioCards = document.getElementById("studioCards");
+      const studioAlbums = document.getElementById("studioAlbums");
+
+      const renderStudios = () => {
+        studioCards.innerHTML = "";
+        studioAlbums.innerHTML = "";
+
+        studios.forEach((studio) => {
+        const images = createImageSet();
+        studio.images = images;
+
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML = `
+          <span class="badge">Studio indoor</span>
+          <h2>${studio.name}</h2>
+          <div>Quận: ${studio.district}</div>
+          <div>Địa chỉ: ${studio.address}</div>
+          <div>Liên hệ: ${studio.phone}</div>
+          <div>Giá tham khảo: ${studio.price}</div>
+          <a href="${studio.portfolio}" target="_blank" rel="noreferrer">Portfolio</a>
+          <button type="button" data-album="${studio.id}">Xem album</button>
+        `;
+        studioCards.appendChild(card);
+
+        const section = document.createElement("section");
+        section.className = "studio-section";
+        section.id = `album-${studio.id}`;
+        section.innerHTML = `
+          <h3>${studio.name}</h3>
+          <p class="studio-meta">${studio.district} · ${studio.address} · ${studio.phone} · ${studio.price}</p>
+          <div class="gallery" data-studio="${studio.id}"></div>
+        `;
+
+        const gallery = section.querySelector(".gallery");
+        images.forEach((src, imageIndex) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.dataset.studio = studio.id;
+          button.dataset.index = imageIndex;
+          button.innerHTML = `<img src="${src}" alt="${studio.name} - demo ${imageIndex + 1}" loading="lazy" />`;
+          gallery.appendChild(button);
+        });
+
+        studioAlbums.appendChild(section);
+        });
+      };
+
+      renderStudios();
+
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImage = document.getElementById("lightboxImage");
+      const lightboxCaption = document.getElementById("lightboxCaption");
+      const closeLightbox = document.getElementById("closeLightbox");
+      const nextImage = document.getElementById("nextImage");
+      const prevImage = document.getElementById("prevImage");
+
+      let currentStudio = "tuart";
+      let currentIndex = 0;
+
+      const openLightbox = (studioId, imageIndex) => {
+        currentStudio = studioId;
+        currentIndex = imageIndex;
+        const studio = studios.find((item) => item.id === currentStudio);
+        lightboxImage.src = studio.images[currentIndex];
+        lightboxImage.alt = `${studio.name} - demo ${currentIndex + 1}`;
+        lightboxCaption.textContent = `${currentIndex + 1} / ${studio.images.length}`;
+        lightbox.classList.add("active");
+        lightbox.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      };
+
+      const closeLightboxHandler = () => {
+        lightbox.classList.remove("active");
+        lightbox.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      };
+
+      const showNext = (direction) => {
+        const studio = studios.find((item) => item.id === currentStudio);
+        currentIndex = (currentIndex + direction + studio.images.length) % studio.images.length;
+        lightboxImage.src = studio.images[currentIndex];
+        lightboxImage.alt = `${studio.name} - demo ${currentIndex + 1}`;
+        lightboxCaption.textContent = `${currentIndex + 1} / ${studio.images.length}`;
+      };
+
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (target.closest(".gallery button")) {
+          const button = target.closest("button");
+          openLightbox(Number(button.dataset.studio), Number(button.dataset.index));
+        }
+
+        if (target.matches(".card button")) {
+          const albumId = target.dataset.album;
+          const album = document.getElementById(`album-${albumId}`);
+          if (!album) {
+            return;
+          }
+          album.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      });
+
+      closeLightbox.addEventListener("click", closeLightboxHandler);
+      nextImage.addEventListener("click", () => showNext(1));
+      prevImage.addEventListener("click", () => showNext(-1));
+      lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox) {
+          closeLightboxHandler();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (!lightbox.classList.contains("active")) {
+          return;
+        }
+
+        if (event.key === "Escape") {
+          closeLightboxHandler();
+        }
+
+        if (event.key === "ArrowRight") {
+          showNext(1);
+        }
+
+        if (event.key === "ArrowLeft") {
+          showNext(-1);
+        }
+      });
+
+    </script>
+  </body>
+</html>
