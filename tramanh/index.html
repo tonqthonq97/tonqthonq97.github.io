@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Studio ảnh cưới TP.HCM — Chỉ chụp studio (không ngoại cảnh)</title>
+    <meta
+      name="description"
+      content="Tổng hợp 10 studio ảnh cưới tại TP.HCM có chụp trong studio (không ngoại cảnh). Ảnh demo hotlink từ portfolio chính chủ để dễ xem và chọn."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Đi tới danh sách studio</a>
+
+    <header class="hero">
+      <div class="shell hero__inner">
+        <div class="hero__top">
+          <div>
+            <p class="kicker">TP. Hồ Chí Minh • Chụp ảnh cưới trong studio</p>
+            <h1 class="hero__title">Chỉ studio, không ngoại cảnh</h1>
+            <p class="hero__subtitle">
+              10 studio tại TP.HCM có set chụp trong studio. Ảnh demo lấy từ portfolio chính chủ (hotlink) để bạn và vợ
+              xem nhanh, so sánh và shortlist.
+            </p>
+          </div>
+
+          <div class="hero__badges" aria-label="Tiêu chí bắt buộc">
+            <span class="badge badge--strong">Có chụp studio</span>
+            <span class="badge badge--strong">Ở TP.HCM</span>
+            <span class="badge">Không dùng ảnh ngoại cảnh</span>
+          </div>
+        </div>
+
+        <section class="controls" aria-label="Bộ lọc">
+          <label class="field field--search">
+            <span class="sr-only">Tìm studio</span>
+            <input id="searchInput" type="search" autocomplete="off" placeholder="Tìm theo tên, quận, đường, phong cách…" />
+          </label>
+
+          <label class="field field--select">
+            <span class="sr-only">Quận</span>
+            <select id="districtSelect">
+              <option value="">Tất cả quận</option>
+            </select>
+          </label>
+
+          <button id="shortlistToggle" class="chip" type="button" aria-pressed="false">
+            Đã chọn: <span id="shortlistCount">0</span>
+          </button>
+
+          <div class="controls__meta">
+            <span id="resultCount" class="muted"></span>
+          </div>
+        </section>
+      </div>
+    </header>
+
+    <main id="main" class="shell">
+      <section aria-label="Danh sách studio">
+        <div id="studioGrid" class="grid" role="list"></div>
+      </section>
+
+      <footer class="footer">
+        <p class="footer__note">
+          Lưu ý: Ảnh demo được nhúng trực tiếp từ website/portfolio của từng studio (hotlink). Nếu một ảnh không hiển thị
+          có thể do studio đổi link hoặc chặn hotlink.
+        </p>
+      </footer>
+    </main>
+
+    <div id="albumModal" class="modal" aria-hidden="true">
+      <div class="modal__backdrop" data-close></div>
+      <section class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="albumTitle">
+        <header class="modal__header">
+          <div class="modal__heading">
+            <h2 id="albumTitle" class="modal__title"></h2>
+            <p id="albumSubtitle" class="modal__subtitle"></p>
+          </div>
+          <div class="modal__headerActions">
+            <button id="albumShortlistBtn" class="icon-btn" type="button" aria-pressed="false">
+              <span class="icon-btn__icon" aria-hidden="true">♥</span>
+              <span class="icon-btn__label">Chọn</span>
+            </button>
+            <button class="icon-btn" type="button" data-close aria-label="Đóng">
+              <span class="icon-btn__icon" aria-hidden="true">✕</span>
+              <span class="icon-btn__label">Đóng</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="modal__content">
+          <div class="viewer" aria-label="Trình xem ảnh">
+            <button class="nav nav--prev" type="button" data-nav="-1" aria-label="Ảnh trước">‹</button>
+            <figure class="viewer__frame">
+              <img id="albumImage" class="viewer__img" alt="" />
+              <figcaption id="albumCaption" class="viewer__caption"></figcaption>
+            </figure>
+            <button class="nav nav--next" type="button" data-nav="1" aria-label="Ảnh sau">›</button>
+          </div>
+
+          <div id="albumThumbs" class="thumbs" aria-label="Ảnh thu nhỏ"></div>
+
+          <section id="albumInfo" class="infoPanel" aria-label="Thông tin studio"></section>
+        </div>
+      </section>
+    </div>
+
+    <script defer src="studios.js"></script>
+    <script defer src="app.js"></script>
+  </body>
+</html>
+
