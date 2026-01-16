@@ -23,13 +23,23 @@ html,body{
   color:#e6eef8;
 }
 
-.wrap{max-width:1200px;margin:24px auto;padding:16px}
+.wrap{max-width:1200px;margin:0 auto;padding:16px}
+
+/* ===== STICKY BAR ===== */
+.sticky-bar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(7,18,27,.85);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
 
 header{
   display:flex;
   gap:16px;
   align-items:center;
-  margin-bottom:16px
+  padding:12px 16px;
 }
 
 .card{
@@ -45,49 +55,17 @@ header{
   gap:14px
 }
 
-.controls{
-  display:flex;
-  gap:12px;
-  align-items:center
-}
-
-/* ===== DARK DROPDOWN STYLE ===== */
-.select-wrap{
-  position:relative;
-}
-
+/* ===== DROPDOWN ===== */
+.select-wrap{position:relative}
 .select-wrap select{
   appearance:none;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-
-  background:linear-gradient(
-    180deg,
-    rgba(255,255,255,0.08),
-    rgba(255,255,255,0.02)
-  );
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
   color:#e6eef8;
-
-  border:1px solid rgba(255,255,255,0.25);
+  border:1px solid rgba(255,255,255,.25);
   border-radius:10px;
-
   padding:8px 36px 8px 12px;
-  font-size:14px;
   font-weight:500;
-
-  cursor:pointer;
-  outline:none;
 }
-
-.select-wrap select:hover{
-  border-color:rgba(255,255,255,0.45);
-}
-
-.select-wrap select:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 2px rgba(96,165,250,0.25);
-}
-
 .select-wrap::after{
   content:"▾";
   position:absolute;
@@ -95,10 +73,13 @@ header{
   top:50%;
   transform:translateY(-50%);
   color:#cfe6ff;
-  font-size:12px;
   pointer-events:none;
 }
-/* ===== END DROPDOWN ===== */
+
+/* ===== CHART ===== */
+.chart-box{position:relative;height:220px}
+.chart-box.large{height:260px}
+canvas{width:100%!important;height:100%!important}
 
 .chart-grid{
   display:grid;
@@ -106,32 +87,23 @@ header{
   gap:12px
 }
 
-.chart-box{position:relative;height:220px}
-.chart-box.large{height:260px}
-
-canvas{
-  width:100%!important;
-  height:100%!important
-}
-
+/* ===== KPI ===== */
 .kpi-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:10px
 }
-
 .kpi{
   background:rgba(255,255,255,.05);
   border-radius:10px;
   padding:10px;
   text-align:center
 }
-
 .kpi span{font-size:12px;color:var(--muted)}
 .kpi b{font-size:18px}
 
-.small{font-size:12px;color:var(--muted)}
 h3{margin:8px 0}
+.small{font-size:12px;color:var(--muted)}
 
 @media(max-width:1000px){
   .grid{grid-template-columns:1fr}
@@ -140,57 +112,45 @@ h3{margin:8px 0}
 </head>
 
 <body>
-<div class="wrap">
 
-<header>
-  <div>
-    <h2>Poker Dashboard</h2>
-    <div class="small">Dropdown dark style – dễ đọc</div>
-  </div>
-  <div class="controls card">
+<!-- STICKY CONTROL BAR -->
+<div class="sticky-bar">
+  <header>
+    <strong>Poker Dashboard</strong>
     <div class="select-wrap">
       <select id="playerSelect"></select>
     </div>
     <div class="select-wrap">
       <select id="dateSelect"></select>
     </div>
-  </div>
-</header>
+  </header>
+</div>
+
+<div class="wrap">
 
 <div class="grid">
 
 <section class="card">
-
   <h3>Theo NGÀY — Kết quả từng người</h3>
   <div class="chart-box large">
     <canvas id="dateBarCanvas"></canvas>
   </div>
 
-  <h3 style="margin-top:16px">🟢 WIN % — TOTAL</h3>
-  <div class="chart-box">
-    <canvas id="winTotalChart"></canvas>
-  </div>
+  <h3>🟢 WIN % — TOTAL</h3>
+  <div class="chart-box"><canvas id="winTotalChart"></canvas></div>
 
   <h3>🔴 LOSE % — TOTAL</h3>
-  <div class="chart-box">
-    <canvas id="loseTotalChart"></canvas>
-  </div>
+  <div class="chart-box"><canvas id="loseTotalChart"></canvas></div>
 
-  <h3 style="margin-top:16px">🟢 WIN % — THEO NGÀY</h3>
-  <div class="chart-box">
-    <canvas id="winDayChart"></canvas>
-  </div>
+  <h3>🟢 WIN % — THEO NGÀY</h3>
+  <div class="chart-box"><canvas id="winDayChart"></canvas></div>
 
   <h3>🔴 LOSE % — THEO NGÀY</h3>
-  <div class="chart-box">
-    <canvas id="loseDayChart"></canvas>
-  </div>
-
+  <div class="chart-box"><canvas id="loseDayChart"></canvas></div>
 </section>
 
 <aside class="card">
   <h3 id="playerTitle">Player</h3>
-
   <div class="kpi-grid">
     <div class="kpi"><span>Total</span><b id="kTotal">0</b></div>
     <div class="kpi"><span>Avg</span><b id="kAvg">0</b></div>
@@ -200,13 +160,22 @@ h3{margin:8px 0}
     <div class="kpi"><span>Worst</span><b id="kMin">0</b></div>
   </div>
 
-  <h3 style="margin-top:16px">Theo NGƯỜI — Time Series</h3>
+  <h3>Theo NGƯỜI — Time Series</h3>
   <div class="chart-box large">
     <canvas id="playerLineCanvas"></canvas>
   </div>
 </aside>
 
 </div>
+
+<!-- RANKING -->
+<section class="card" style="margin-top:16px">
+  <h3>🏆 Player Ranking — TOTAL</h3>
+  <div class="chart-box large">
+    <canvas id="rankingCanvas"></canvas>
+  </div>
+</section>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
@@ -254,14 +223,17 @@ const loseDayChart=doughnut('loseDayChart');
 
 const dateBarChart=new Chart(dateBarCanvas,{type:'bar',data:{labels:players,datasets:[{data:[]}]},options:{plugins:{legend:{display:false}},...anim}});
 const playerLineChart=new Chart(playerLineCanvas,{type:'line',data:{labels:dates,datasets:[]},options:{plugins:{legend:{display:false}},tension:.25,...anim}});
+const rankingChart=new Chart(rankingCanvas,{type:'bar',data:{labels:[],datasets:[{data:[],backgroundColor:[]}]},options:{plugins:{legend:{display:false}},...anim}});
 
 function updateTotal(){
-  const win=[],lose=[];
+  const win=[],lose=[],rank=[];
   players.forEach((p,i)=>{
     const total=sum(series[p]);
     if(total>0) win.push({p,val:total,c:COLORS[i]});
     if(total<0) lose.push({p,val:Math.abs(total),c:COLORS[i]});
+    rank.push({p,val:total,c:total>=0?'#22c55e':'#ef4444'});
   });
+
   winTotalChart.data.labels=win.map(x=>x.p);
   winTotalChart.data.datasets[0].data=win.map(x=>x.val);
   winTotalChart.data.datasets[0].backgroundColor=win.map(x=>x.c);
@@ -271,6 +243,12 @@ function updateTotal(){
   loseTotalChart.data.datasets[0].data=lose.map(x=>x.val);
   loseTotalChart.data.datasets[0].backgroundColor=lose.map(x=>x.c);
   loseTotalChart.update();
+
+  rank.sort((a,b)=>b.val-a.val);
+  rankingChart.data.labels=rank.map(x=>x.p);
+  rankingChart.data.datasets[0].data=rank.map(x=>x.val);
+  rankingChart.data.datasets[0].backgroundColor=rank.map(x=>x.c);
+  rankingChart.update();
 }
 
 function updateDay(){
